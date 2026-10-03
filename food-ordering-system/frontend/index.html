@@ -1,0 +1,569 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Foodie - Online Food Ordering</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🍔 Foodie
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="#menu">Menu</a>
+
+        <a href="cart.html">🛒 Cart</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="register.html" class="register-btn">
+            Register
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <p class="small-title">
+            WELCOME TO FOODIE
+        </p>
+
+        <h1>
+            Delicious Food,
+            <span>Delivered Fast.</span>
+        </h1>
+
+        <p>
+            Order your favourite food from the comfort
+            of your home. Fresh, tasty and delivered
+            right to your door.
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <!-- Goes directly to checkout -->
+            <a href="checkout.html" class="primary-btn">
+                Order Now 🍕
+            </a>
+
+
+            <a href="cart.html" class="secondary-btn">
+                View Cart 🛒
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= SEARCH ================= -->
+
+<section class="search-section">
+
+    <h2>
+        What are you craving?
+    </h2>
+
+    <input
+        type="text"
+        id="searchFood"
+        placeholder="Search food..."
+        onkeyup="searchFood()"
+    >
+
+</section>
+
+
+
+<!-- ================= CATEGORIES ================= -->
+
+<section class="categories">
+
+    <h2>
+        Food Categories
+    </h2>
+
+
+    <div class="category-container">
+
+        <button onclick="filterFood('all')">
+            🍽️ All
+        </button>
+
+
+        <button onclick="filterFood('pizza')">
+            🍕 Pizza
+        </button>
+
+
+        <button onclick="filterFood('burger')">
+            🍔 Burger
+        </button>
+
+
+        <button onclick="filterFood('momo')">
+            🥟 Momo
+        </button>
+
+
+        <button onclick="filterFood('noodles')">
+            🍜 Noodles
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOD MENU ================= -->
+
+<section class="food-section" id="menu">
+
+    <h2>
+        Popular Foods
+    </h2>
+
+    <p class="section-description">
+        Choose from our most popular and delicious dishes.
+    </p>
+
+
+    <div class="food-container">
+
+
+        <!-- ================= PIZZA ================= -->
+
+        <div class="food-card" data-category="pizza">
+
+            <img
+                src="images/pizza.jpg"
+                alt="Pizza"
+            >
+
+
+            <div class="food-info">
+
+                <h3>
+                    🍕 Pizza
+                </h3>
+
+
+                <p>
+                    Delicious cheesy pizza with fresh
+                    toppings and crispy crust.
+                </p>
+
+
+                <div class="food-bottom">
+
+                    <span>
+                        Rs. 450
+                    </span>
+
+
+                    <!-- ONLY THIS ADDS TO CART -->
+                    <button
+                        onclick="addToCart('Pizza', 450)"
+                    >
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <!-- VIEW DETAILS DOES NOT ADD TO CART -->
+                <a
+                    href="food-details.html?food=pizza"
+                    class="details-link"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= BURGER ================= -->
+
+        <div class="food-card" data-category="burger">
+
+            <img
+                src="images/burger.jpg"
+                alt="Burger"
+            >
+
+
+            <div class="food-info">
+
+                <h3>
+                    🍔 Burger
+                </h3>
+
+
+                <p>
+                    Juicy burger with fresh vegetables,
+                    cheese and special sauce.
+                </p>
+
+
+                <div class="food-bottom">
+
+                    <span>
+                        Rs. 250
+                    </span>
+
+
+                    <!-- ONLY THIS ADDS TO CART -->
+                    <button
+                        onclick="addToCart('Burger', 250)"
+                    >
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <!-- VIEW DETAILS DOES NOT ADD TO CART -->
+                <a
+                    href="food-details.html?food=burger"
+                    class="details-link"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= MOMO ================= -->
+
+        <div class="food-card" data-category="momo">
+
+            <img
+                src="images/momo.jpg"
+                alt="Momo"
+            >
+
+
+            <div class="food-info">
+
+                <h3>
+                    🥟 Momo
+                </h3>
+
+
+                <p>
+                    Hot and delicious steamed momo
+                    served with spicy chutney.
+                </p>
+
+
+                <div class="food-bottom">
+
+                    <span>
+                        Rs. 180
+                    </span>
+
+
+                    <!-- ONLY THIS ADDS TO CART -->
+                    <button
+                        onclick="addToCart('Momo', 180)"
+                    >
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <!-- VIEW DETAILS DOES NOT ADD TO CART -->
+                <a
+                    href="food-details.html?food=momo"
+                    class="details-link"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= KIMA NOODLE ================= -->
+
+        <div class="food-card" data-category="noodles">
+
+            <img
+                src="images/kima-noodle.jpg"
+                alt="Kima Noodle"
+            >
+
+
+            <div class="food-info">
+
+                <h3>
+                    🍜 Kima Noodle
+                </h3>
+
+
+                <p>
+                    Delicious and spicy kima noodle
+                    prepared with fresh ingredients.
+                </p>
+
+
+                <div class="food-bottom">
+
+                    <span>
+                        Rs. 200
+                    </span>
+
+
+                    <!-- ONLY THIS ADDS TO CART -->
+                    <button
+                        onclick="addToCart('Kima Noodle', 200)"
+                    >
+                        Add +
+                    </button>
+
+                </div>
+
+
+                <!-- VIEW DETAILS DOES NOT ADD TO CART -->
+                <a
+                    href="food-details.html?food=kima"
+                    class="details-link"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= WHY FOODIE ================= -->
+
+<section class="why-foodie">
+
+    <h2>
+        Why Choose Foodie?
+    </h2>
+
+
+    <div class="why-container">
+
+
+        <div>
+
+            <span>
+                🚀
+            </span>
+
+            <h3>
+                Fast Delivery
+            </h3>
+
+            <p>
+                Get your favourite food delivered quickly.
+            </p>
+
+        </div>
+
+
+
+        <div>
+
+            <span>
+                🍴
+            </span>
+
+            <h3>
+                Fresh Food
+            </h3>
+
+            <p>
+                Freshly prepared food with quality ingredients.
+            </p>
+
+        </div>
+
+
+
+        <div>
+
+            <span>
+                💳
+            </span>
+
+            <h3>
+                Easy Payment
+            </h3>
+
+            <p>
+                Simple and convenient payment options.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <h2>
+        🍔 Foodie
+    </h2>
+
+
+    <p>
+        Your favourite food, delivered to your doorstep.
+    </p>
+
+
+    <p class="copyright">
+        © 2026 Foodie | Online Food Ordering System
+    </p>
+
+</footer>
+
+
+
+<!-- ================= MAIN SCRIPT ================= -->
+
+<script src="script.js"></script>
+
+
+
+<!-- ================= SEARCH & CATEGORY ================= -->
+
+<script>
+
+
+/* SEARCH FOOD */
+
+function searchFood() {
+
+    let search =
+        document
+        .getElementById("searchFood")
+        .value
+        .toLowerCase();
+
+
+    let cards =
+        document.querySelectorAll(".food-card");
+
+
+    cards.forEach(function(card) {
+
+        let name =
+            card
+            .querySelector("h3")
+            .textContent
+            .toLowerCase();
+
+
+        if (name.includes(search)) {
+
+            card.style.display = "block";
+
+        }
+
+        else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+
+/* FILTER FOOD CATEGORY */
+
+function filterFood(category) {
+
+    let cards =
+        document.querySelectorAll(".food-card");
+
+
+    cards.forEach(function(card) {
+
+        if (
+            category === "all" ||
+            card.dataset.category === category
+        ) {
+
+            card.style.display = "block";
+
+        }
+
+        else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+```

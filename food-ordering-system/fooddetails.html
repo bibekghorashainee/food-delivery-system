@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - Foodie</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f8f9fb;
+        }
+
+        .checkout-container {
+            max-width: 950px;
+            margin: 50px auto;
+            padding: 20px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 30px;
+        }
+
+
+        .order-summary,
+        .checkout-box {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.08);
+        }
+
+
+        .order-summary h2,
+        .checkout-box h2 {
+
+            margin-bottom: 25px;
+
+            font-size: 25px;
+        }
+
+
+        .order-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 18px 0;
+
+            border-bottom: 1px solid #ddd;
+        }
+
+
+        .order-item-name {
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+        }
+
+
+        .order-item small {
+
+            color: #777;
+
+        }
+
+
+        .order-item-price {
+
+            color: #ff4d2d;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .total-box {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top: 2px solid #ddd;
+
+            font-size: 22px;
+
+            font-weight: bold;
+        }
+
+
+        .total-price {
+
+            color: #ff4d2d;
+        }
+
+
+        .checkout-box input,
+        .checkout-box textarea,
+        .checkout-box select {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-bottom: 16px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            box-sizing: border-box;
+        }
+
+
+        .checkout-box input:focus,
+        .checkout-box textarea:focus,
+        .checkout-box select:focus {
+
+            border-color: #ff4d2d;
+        }
+
+
+        .checkout-box textarea {
+
+            height: 100px;
+
+            resize: none;
+        }
+
+
+        .place-order-btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            background: #ff4d2d;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+
+        .place-order-btn:hover {
+
+            background: #e63e20;
+
+        }
+
+
+        .empty-order {
+
+            text-align: center;
+
+            padding: 30px;
+
+            color: #777;
+        }
+
+
+        .back-menu {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #ff4d2d;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+
+        @media(max-width: 700px) {
+
+            .checkout-container {
+
+                grid-template-columns: 1fr;
+
+                margin-top: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🍔 Foodie
+    </div>
+
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#menu">
+            Menu
+        </a>
+
+        <a href="cart.html">
+            🛒 Cart
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+        <a href="register.html"
+           class="register-btn">
+            Register
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<div class="checkout-container">
+
+
+    <!-- ================= ORDER SUMMARY ================= -->
+
+    <div class="order-summary">
+
+        <h2>
+            🛒 Your Order
+        </h2>
+
+
+        <div id="orderItems">
+
+            <!-- Item will appear here -->
+
+        </div>
+
+
+        <div class="total-box">
+
+            <span>
+                Total
+            </span>
+
+            <span class="total-price">
+                Rs.
+                <span id="checkoutTotal">
+                    0
+                </span>
+            </span>
+
+        </div>
+
+
+        <a href="index.html#menu"
+           class="back-menu">
+
+            ← Continue Shopping
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ================= CUSTOMER DETAILS ================= -->
+
+    <div class="checkout-box">
+
+        <h2>
+            📦 Delivery Details
+        </h2>
+
+
+        <form
+            onsubmit="placeOrder(event)"
+        >
+
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Full Name"
+                required
+            >
+
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="Phone Number"
+                required
+            >
+
+
+            <textarea
+                id="customerAddress"
+                placeholder="Delivery Address"
+                required
+            ></textarea>
+
+
+            <select
+                id="paymentMethod"
+                required
+            >
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option value="Cash on Delivery">
+                    Cash on Delivery
+                </option>
+
+                <option value="eSewa">
+                    eSewa
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="place-order-btn"
+            >
+
+                Place Order 🍔
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+
+
+/*
+    ORDER NOW stores ONE item
+    inside localStorage as "singleOrder"
+*/
+
+let singleOrder =
+    JSON.parse(
+        localStorage.getItem("singleOrder")
+    );
+
+
+
+/* ================= DISPLAY ORDER ================= */
+
+function displayOrder() {
+
+    const orderItems =
+        document.getElementById(
+            "orderItems"
+        );
+
+
+    const totalElement =
+        document.getElementById(
+            "checkoutTotal"
+        );
+
+
+    orderItems.innerHTML = "";
+
+
+    /*
+        If no single item was selected
+    */
+
+    if (!singleOrder) {
+
+        orderItems.innerHTML = `
+
+            <div class="empty-order">
+
+                <h3>
+                    No item selected
+                </h3>
+
+                <p>
+                    Please select a food item first.
+                </p>
+
+            </div>
+
+        `;
+
+
+        totalElement.textContent = "0";
+
+        return;
+
+    }
+
+
+
+    /*
+        Quantity
+    */
+
+    const quantity =
+        singleOrder.quantity || 1;
+
+
+
+    /*
+        Calculate total
+    */
+
+    const subtotal =
+        singleOrder.price * quantity;
+
+
+
+    /*
+        Show ONLY selected item
+    */
+
+    orderItems.innerHTML = `
+
+        <div class="order-item">
+
+            <div>
+
+                <div class="order-item-name">
+
+                    ${singleOrder.name}
+
+                </div>
+
+
+                <small>
+
+                    Rs. ${singleOrder.price}
+                    ×
+                    ${quantity}
+
+                </small>
+
+            </div>
+
+
+            <div class="order-item-price">
+
+                Rs. ${subtotal}
+
+            </div>
+
+        </div>
+
+    `;
+
+
+
+    /*
+        Show total
+    */
+
+    totalElement.textContent =
+        subtotal;
+
+}
+
+
+
+/* ================= PLACE ORDER ================= */
+
+function placeOrder(event) {
+
+    event.preventDefault();
+
+
+
+    /*
+        Check item
+    */
+
+    if (!singleOrder) {
+
+        alert(
+            "No food item selected!"
+        );
+
+        window.location.href =
+            "index.html#menu";
+
+        return;
+
+    }
+
+
+
+    /*
+        Get customer details
+    */
+
+    const name =
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
+
+    const address =
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
+
+
+    const payment =
+        document.getElementById(
+            "paymentMethod"
+        ).value;
+
+
+
+    /*
+        Validate
+    */
+
+    if (
+        name === "" ||
+        phone === "" ||
+        address === "" ||
+        payment === ""
+    ) {
+
+        alert(
+            "Please fill all details!"
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+        Calculate total
+    */
+
+    const quantity =
+        singleOrder.quantity || 1;
+
+
+    const total =
+        singleOrder.price * quantity;
+
+
+
+    /*
+        Create ONE order
+    */
+
+    const order = {
+
+        customerName: name,
+
+        phone: phone,
+
+        address: address,
+
+        paymentMethod: payment,
+
+        item: {
+
+            name: singleOrder.name,
+
+            price: singleOrder.price,
+
+            quantity: quantity,
+
+            total: total
+
+        },
+
+        total: total,
+
+        date:
+            new Date()
+            .toLocaleString()
+
+    };
+
+
+
+    /*
+        Save last order
+    */
+
+    localStorage.setItem(
+
+        "lastOrder",
+
+        JSON.stringify(order)
+
+    );
+
+
+
+    /*
+        Remove ONLY this single order
+        from checkout
+    */
+
+    localStorage.removeItem(
+        "singleOrder"
+    );
+
+
+
+    /*
+        Go to success page
+    */
+
+    window.location.href =
+        "order-success.html";
+
+}
+
+
+
+/* ================= START ================= */
+
+displayOrder();
+
+</script>
+
+
+</body>
+
+</html>

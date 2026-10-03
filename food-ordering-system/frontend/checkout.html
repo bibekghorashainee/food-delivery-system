@@ -1,0 +1,1076 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - Foodie</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body {
+            background: #f7f8fa;
+        }
+
+        .checkout-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 30px;
+        }
+
+        .order-summary,
+        .checkout-box {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .section-title-icon {
+            font-size: 30px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .section-title p {
+            margin: 5px 0 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* FOOD SELECT */
+
+        .food-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .food-selector select {
+            flex: 1;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .add-food-btn {
+            padding: 13px 18px;
+            border: none;
+            border-radius: 9px;
+            background: #ff4d2d;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-food-btn:hover {
+            background: #e63e20;
+        }
+
+        /* ORDER ITEM */
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .order-item-image {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .order-item-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .unit-price {
+            color: #777;
+            font-size: 13px;
+            margin: 5px 0 10px;
+        }
+
+        /* QUANTITY */
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-control button {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 6px;
+            background: #ff4d2d;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .quantity-control span {
+            min-width: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .item-right {
+            text-align: right;
+        }
+
+        .item-price {
+            color: #ff4d2d;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .remove-btn {
+            border: none;
+            background: none;
+            color: #d33;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* TOTAL */
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            color: #555;
+        }
+
+        .grand-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            margin-top: 5px;
+            border-top: 2px solid #eee;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .grand-total-price {
+            color: #ff4d2d;
+        }
+
+        /* FORM */
+
+        .checkout-box label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .checkout-box input,
+        .checkout-box textarea,
+        .checkout-box select {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .checkout-box input:focus,
+        .checkout-box textarea:focus,
+        .checkout-box select:focus {
+            border-color: #ff4d2d;
+        }
+
+        .checkout-box textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #ff4d2d;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .place-order-btn:hover {
+            background: #e63e20;
+        }
+
+        .empty-order {
+            text-align: center;
+            padding: 30px 10px;
+            color: #777;
+        }
+
+        @media(max-width: 750px) {
+
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .food-selector {
+                flex-direction: column;
+            }
+
+            .order-item {
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo">
+        🍔 Foodie
+    </div>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+
+        <a href="index.html#menu">Menu</a>
+
+        <a href="cart.html">🛒 Cart</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="register.html">Register</a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- CHECKOUT -->
+
+<div class="checkout-container">
+
+
+    <!-- LEFT SIDE -->
+
+    <div class="order-summary">
+
+
+        <div class="section-title">
+
+            <div class="section-title-icon">
+                🛒
+            </div>
+
+            <div>
+
+                <h2>Your Order</h2>
+
+                <p>
+                    Select and edit your food items
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOD SELECTOR -->
+
+        <div class="food-selector">
+
+            <select id="foodSelect">
+
+                <option value="">
+                    Select Food Item
+                </option>
+
+                <option value="Pizza">
+                    🍕 Pizza - Rs. 450
+                </option>
+
+                <option value="Burger">
+                    🍔 Burger - Rs. 250
+                </option>
+
+                <option value="Momo">
+                    🥟 Momo - Rs. 180
+                </option>
+
+                <option value="Kima Noodle">
+                    🍜 Kima Noodle - Rs. 200
+                </option>
+
+            </select>
+
+
+            <button
+                class="add-food-btn"
+                type="button"
+                onclick="addSelectedFood()"
+            >
+                + Add
+            </button>
+
+        </div>
+
+
+
+        <!-- ITEMS -->
+
+        <div id="orderItems">
+
+            <div class="empty-order">
+
+                <h3>
+                    No food selected
+                </h3>
+
+                <p>
+                    Select a food item above.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SUBTOTAL -->
+
+        <div class="price-row">
+
+            <span>
+                Subtotal
+            </span>
+
+            <span>
+                Rs.
+                <span id="subtotal">
+                    0
+                </span>
+            </span>
+
+        </div>
+
+
+
+        <!-- DELIVERY -->
+
+        <div class="price-row">
+
+            <span>
+                Delivery Charge
+            </span>
+
+            <span>
+                Rs.
+                <span id="deliveryCharge">
+                    50
+                </span>
+            </span>
+
+        </div>
+
+
+
+        <!-- TOTAL -->
+
+        <div class="grand-total">
+
+            <span>
+                Grand Total
+            </span>
+
+            <span class="grand-total-price">
+
+                Rs.
+                <span id="checkoutTotal">
+                    0
+                </span>
+
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="checkout-box">
+
+
+        <div class="section-title">
+
+            <div class="section-title-icon">
+                📦
+            </div>
+
+            <div>
+
+                <h2>
+                    Delivery Details
+                </h2>
+
+                <p>
+                    Enter your delivery information
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <form onsubmit="placeOrder(event)">
+
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Enter your full name"
+                required
+            >
+
+
+            <label>
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="customerPhone"
+                placeholder="98XXXXXXXX"
+                pattern="[0-9]{10}"
+                required
+            >
+
+
+            <label>
+                Delivery Address
+            </label>
+
+            <textarea
+                id="customerAddress"
+                placeholder="Enter your complete address"
+                required
+            ></textarea>
+
+
+            <label>
+                Payment Method
+            </label>
+
+            <select
+                id="paymentMethod"
+                required
+            >
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option value="Cash on Delivery">
+                    💵 Cash on Delivery
+                </option>
+
+                <option value="eSewa">
+                    💚 eSewa
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="place-order-btn"
+            >
+
+                Place Order 🍔
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* ================= FOOD DATA ================= */
+
+const foods = {
+
+    "Pizza": {
+        price: 450,
+        image: "images/pizza.jpg"
+    },
+
+    "Burger": {
+        price: 250,
+        image: "images/burger.jpg"
+    },
+
+    "Momo": {
+        price: 180,
+        image: "images/momo.jpg"
+    },
+
+    "Kima Noodle": {
+        price: 200,
+        image: "images/kima-noodle.jpg"
+    }
+
+};
+
+
+
+/* ================= CART ================= */
+
+let orderItems =
+    JSON.parse(
+        localStorage.getItem("checkoutItems")
+    ) || [];
+
+
+
+/* ================= ADD FOOD ================= */
+
+function addSelectedFood() {
+
+    const selected =
+        document.getElementById(
+            "foodSelect"
+        ).value;
+
+
+    if (selected === "") {
+
+        alert("Please select a food item!");
+
+        return;
+
+    }
+
+
+    const existing =
+        orderItems.find(
+            item => item.name === selected
+        );
+
+
+    if (existing) {
+
+        existing.quantity++;
+
+    }
+
+    else {
+
+        orderItems.push({
+
+            name: selected,
+
+            price: foods[selected].price,
+
+            image: foods[selected].image,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    saveItems();
+
+    displayItems();
+
+
+    document.getElementById(
+        "foodSelect"
+    ).value = "";
+
+}
+
+
+
+/* ================= DISPLAY ================= */
+
+function displayItems() {
+
+    const container =
+        document.getElementById(
+            "orderItems"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (orderItems.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-order">
+
+                <h3>
+                    No food selected
+                </h3>
+
+                <p>
+                    Select a food item above.
+                </p>
+
+            </div>
+
+        `;
+
+        updateTotal();
+
+        return;
+
+    }
+
+
+    orderItems.forEach(
+        (item, index) => {
+
+            const subtotal =
+                item.price *
+                item.quantity;
+
+
+            container.innerHTML += `
+
+                <div class="order-item">
+
+
+                    <div class="order-item-left">
+
+
+                        <img
+
+                            class="order-item-image"
+
+                            src="${item.image}"
+
+                            alt="${item.name}"
+
+                        >
+
+
+                        <div>
+
+                            <div class="order-item-name">
+
+                                ${item.name}
+
+                            </div>
+
+
+                            <div class="unit-price">
+
+                                Rs. ${item.price}
+                                per item
+
+                            </div>
+
+
+                            <div class="quantity-control">
+
+
+                                <button
+                                    type="button"
+                                    onclick="decreaseQuantity(${index})"
+                                >
+                                    −
+                                </button>
+
+
+                                <span>
+                                    ${item.quantity}
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    onclick="increaseQuantity(${index})"
+                                >
+                                    +
+                                </button>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-right">
+
+
+                        <div class="item-price">
+
+                            Rs. ${subtotal}
+
+                        </div>
+
+
+                        <button
+
+                            type="button"
+
+                            class="remove-btn"
+
+                            onclick="removeItem(${index})"
+
+                        >
+
+                            Remove
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+        }
+    );
+
+
+    updateTotal();
+
+}
+
+
+
+/* ================= INCREASE ================= */
+
+function increaseQuantity(index) {
+
+    orderItems[index].quantity++;
+
+    saveItems();
+
+    displayItems();
+
+}
+
+
+
+/* ================= DECREASE ================= */
+
+function decreaseQuantity(index) {
+
+    if (
+        orderItems[index].quantity > 1
+    ) {
+
+        orderItems[index].quantity--;
+
+    }
+
+    else {
+
+        orderItems.splice(index, 1);
+
+    }
+
+
+    saveItems();
+
+    displayItems();
+
+}
+
+
+
+/* ================= REMOVE ================= */
+
+function removeItem(index) {
+
+    orderItems.splice(index, 1);
+
+    saveItems();
+
+    displayItems();
+
+}
+
+
+
+/* ================= SAVE ================= */
+
+function saveItems() {
+
+    localStorage.setItem(
+
+        "checkoutItems",
+
+        JSON.stringify(orderItems)
+
+    );
+
+}
+
+
+
+/* ================= TOTAL ================= */
+
+function updateTotal() {
+
+    let subtotal = 0;
+
+
+    orderItems.forEach(item => {
+
+        subtotal +=
+            item.price *
+            item.quantity;
+
+    });
+
+
+    const delivery =
+        orderItems.length > 0
+        ? 50
+        : 0;
+
+
+    const total =
+        subtotal + delivery;
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent = subtotal;
+
+
+    document.getElementById(
+        "deliveryCharge"
+    ).textContent = delivery;
+
+
+    document.getElementById(
+        "checkoutTotal"
+    ).textContent = total;
+
+}
+
+
+
+/* ================= PLACE ORDER ================= */
+
+function placeOrder(event) {
+
+    event.preventDefault();
+
+
+    if (orderItems.length === 0) {
+
+        alert(
+            "Please select at least one food item!"
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        document.getElementById(
+            "customerName"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
+
+
+    const address =
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
+
+
+    const payment =
+        document.getElementById(
+            "paymentMethod"
+        ).value;
+
+
+    if (
+        name === "" ||
+        phone === "" ||
+        address === "" ||
+        payment === ""
+    ) {
+
+        alert(
+            "Please fill all details!"
+        );
+
+        return;
+
+    }
+
+
+    let subtotal = 0;
+
+
+    orderItems.forEach(item => {
+
+        subtotal +=
+            item.price *
+            item.quantity;
+
+    });
+
+
+    const delivery =
+        50;
+
+
+    const total =
+        subtotal + delivery;
+
+
+
+    /* SAVE ORDER */
+
+    const order = {
+
+        customerName: name,
+
+        phone: phone,
+
+        address: address,
+
+        paymentMethod: payment,
+
+        items: orderItems,
+
+        subtotal: subtotal,
+
+        deliveryCharge: delivery,
+
+        total: total,
+
+        date:
+            new Date()
+            .toLocaleString()
+
+    };
+
+
+    localStorage.setItem(
+
+        "lastOrder",
+
+        JSON.stringify(order)
+
+    );
+
+
+    /* CLEAR CHECKOUT */
+
+    localStorage.removeItem(
+        "checkoutItems"
+    );
+
+
+    /* SUCCESS */
+
+    window.location.href =
+        "order-success.html";
+
+}
+
+
+
+/* ================= START ================= */
+
+displayItems();
+
+
+</script>
+
+
+</body>
+
+</html>
+
